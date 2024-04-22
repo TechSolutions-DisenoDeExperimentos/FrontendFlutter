@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:cine_app/api_tucine/domain/entities/cineclub.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tu_cine_app/domain/entities/cineclub.dart';
 
 class CineclubHorizontalListview extends StatefulWidget {
   //Los cineclubs que quiere mostrar

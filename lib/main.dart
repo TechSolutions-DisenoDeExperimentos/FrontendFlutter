@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'package:cine_app/config/router/app_router.dart';
+import 'package:cine_app/config/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tu_cine_app/config/router/app_router.dart';
-import 'package:tu_cine_app/config/theme/app_theme.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-
   runApp(
     const ProviderScope(child: MyApp())
   );
@@ -18,11 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
-      title: 'TuCine App',
+      debugShowCheckedModeBanner: false,
+      title: 'Cine App',
       theme: AppTheme().getTheme(),
     );
   }
 }
+
 
