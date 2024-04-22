@@ -8,9 +8,7 @@ class MovieMapper {
     title: movieResponse.title,
     year: movieResponse.year,
     synopsis: movieResponse.synopsis,
-    posterSrc: movieResponse.posterSrc,
+    posterPath: movieResponse.posterSrc,
     genreIds: movieResponse.categories.map((e) => e.name).toList(),
-    trailerSrc: movieResponse.trailerSrc,
-    duration: movieResponse.duration
   );
 }

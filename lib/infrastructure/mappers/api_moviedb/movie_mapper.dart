@@ -7,28 +7,22 @@ class MovieMapper {
   static Movie movieDBToEntity(MovieMovieDB moviedb) => Movie( //yo espero :T
         id: moviedb.id,
         title: moviedb.title,
-        year: 0,
+        year: moviedb.releaseDate.year,
         synopsis: moviedb.overview,
         genreIds: moviedb.genreIds.map((e) => e.toString()).toList(),
-        posterSrc: (moviedb.posterPath != '')
+        posterPath: (moviedb.posterPath != '')
             ? '${Environment.theMovieDbImagesUrl}/${moviedb.posterPath}'
-            : 'noposter',
-        //releaseDate: moviedb.releaseDate,
-        trailerSrc: '',
-        duration: 0,
+            : 'https://www.reelviews.net/resources/img/default_poster.jpg',
       );
 
   static Movie movieDetailsToEntity(MovieDetails movie) => Movie(
         id: movie.id,
         title: movie.title,
-        year: 0,
+        year: movie.releaseDate.year,
         synopsis: movie.overview,
         genreIds: movie.genres.map((e) => e.name).toList(),
-        posterSrc: (movie.posterPath != '')
+        posterPath: (movie.posterPath != '')
             ? '${Environment.theMovieDbImagesUrl}/${movie.posterPath}'
-            : 'noposter',
-        //releaseDate: movie.releaseDate,
-        trailerSrc: '',
-        duration: 0,
+            : 'https://www.reelviews.net/resources/img/default_poster.jpg',
       );
 }
