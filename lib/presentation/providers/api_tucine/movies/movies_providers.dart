@@ -10,6 +10,7 @@ final moviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) 
   );
 });
 
+
 typedef MovieCallback = Future<List<Movie>> Function();
 
 class MoviesNotifier extends StateNotifier<List<Movie>> {

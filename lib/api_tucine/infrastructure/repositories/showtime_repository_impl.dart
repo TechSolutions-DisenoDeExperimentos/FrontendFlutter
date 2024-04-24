@@ -10,4 +10,9 @@ class ShowtimeRepositoryImpl extends ShowtimesRepository {
   Future<List<Showtime>> getShowtimes(String movieId, String cineclubId) {
     return dataSource.getShowtimes(movieId, cineclubId);
   }
+  
+  @override
+  Future<Showtime> getShowtimeById(String id) {
+    return dataSource.getShowtimeById(id);
+  }
 }
