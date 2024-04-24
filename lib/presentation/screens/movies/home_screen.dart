@@ -1,6 +1,8 @@
+import 'package:cine_app/presentation/providers/api_moviedb/movies/initial_loading_provider.dart';
+import 'package:cine_app/presentation/providers/api_moviedb/movies/movies_providers.dart';
 import 'package:cine_app/presentation/providers/api_tucine/cineclubs/cineclubs_provider.dart';
 import 'package:cine_app/presentation/providers/api_tucine/movies/movies_providers.dart';
-import 'package:cine_app/presentation/providers/providers.dart';
+import 'package:cine_app/presentation/providers/api_moviedb/movies/movies_slideshow_provider.dart';
 import 'package:cine_app/presentation/screens/movies/favorite_movie_screen.dart';
 import 'package:cine_app/presentation/screens/profile/profile_screen.dart';
 import 'package:cine_app/presentation/screens/search/search_screen.dart';
@@ -92,11 +94,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     //if (initialLoading) return const FullScreenLoader();
 
-    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    //final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    //final popularMovies = ref.watch(popularMoviesProvider);
+    //final topRatedMovies = ref.watch(topRatedMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
-    final popularMovies = ref.watch(popularMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
-    final topRatedMovies = ref.watch(topRatedMoviesProvider);
     final tuCineMovies = ref.watch(moviesProvider);
     final cineclubs = ref.watch(cineclubsProvider);
 
@@ -126,7 +128,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
               return Column(children: [
                 //const CustomAppbar(),
                 MoviesSlideshow(movies: slideShowMovies),
-                MovieHorizontalListView(
+                /*MovieHorizontalListView(
                   movies: nowPlayingMovies,
                   title: 'On theathers',
                   subtitle: 'Movies',
@@ -134,14 +136,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
                   },
                 ),
-                MovieHorizontalListView(
-                  movies: upcomingMovies,
-                  title: 'Upcoming',
-                  subtitle: 'Movies',
-                  loadNextPage: () {
-                    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
-                  },
-                ),
+                
                 MovieHorizontalListView(
                   movies: popularMovies,
                   title: 'Popular',
@@ -158,23 +153,33 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     ref.read(topRatedMoviesProvider.notifier).loadNextPage();
                   },
                 ),
-                MovieHorizontalListViewTuCine(
+                */
+                CineclubHorizontalListview(
+                  cineclubs: cineclubs,
+                  name: 'Cineclubs',
+                  subtitle: 'Cineclubs',
+                  loadNextPage: () => ref
+                      .read(cineclubsProvider.notifier)
+                      .getCineclubs(), //Scroll infinitamente
+                  ),
+
+                  MovieHorizontalListViewTuCine(
                   movies: tuCineMovies,
-                  title: 'TuCine',
+                  title: 'En cartelera',
                   subtitle: 'Movies',
                   loadNextPage: () {
                     ref.read(moviesProvider.notifier).getNowPlayingMovies();
                   },
                 ),
-                CineclubHorizontalListview(
-                  cineclubs: cineclubs,
-                  name: 'Cineclubs',
-                  subtitle: 'Ver más',
-                  loadNextPage: () => ref
-                      .read(cineclubsProvider.notifier)
-                      .getCineclubs(), //Scroll infinitamente
-                  
-                  ),
+
+                MovieHorizontalListView(
+                  movies: upcomingMovies,
+                  title: 'Proximamente',
+                  subtitle: 'Movies',
+                  loadNextPage: () {
+                    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+                  },
+                ),
 
                 const SizedBox(height: 10),
               ]);

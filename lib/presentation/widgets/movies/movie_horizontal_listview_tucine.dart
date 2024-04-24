@@ -51,7 +51,7 @@ class _MovieHorizontalListViewTuCineState extends State<MovieHorizontalListViewT
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 280,
       child: Column(
         children: [
 
@@ -113,7 +113,7 @@ class _Slide extends StatelessWidget {
                   }
 
                   return GestureDetector(
-                    onTap: () => context.push('/movie/${movie.id}'),
+                    onTap: () => context.push('/movie-tu-cine/${movie.id}'),
                     child: FadeIn(child: child),
                   );
                   

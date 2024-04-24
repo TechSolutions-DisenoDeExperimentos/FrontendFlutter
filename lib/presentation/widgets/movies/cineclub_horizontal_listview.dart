@@ -19,11 +19,12 @@ class CineclubHorizontalListview extends StatefulWidget {
   });
 
   @override
-  State<CineclubHorizontalListview> createState() => _CineclubHorizontalListviewState();
+  State<CineclubHorizontalListview> createState() =>
+      _CineclubHorizontalListviewState();
 }
 
-class _CineclubHorizontalListviewState extends State<CineclubHorizontalListview> {
-
+class _CineclubHorizontalListviewState
+    extends State<CineclubHorizontalListview> {
   final scrollController = ScrollController();
 
   @override
@@ -32,7 +33,8 @@ class _CineclubHorizontalListviewState extends State<CineclubHorizontalListview>
 
     scrollController.addListener(() {
       if (widget.loadNextPage == null) return;
-      if ((scrollController.position.pixels + 200) >= scrollController.position.maxScrollExtent) {
+      if ((scrollController.position.pixels + 200) >=
+          scrollController.position.maxScrollExtent) {
         widget.loadNextPage!();
       }
     });
@@ -44,7 +46,6 @@ class _CineclubHorizontalListviewState extends State<CineclubHorizontalListview>
     scrollController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,8 @@ class _CineclubHorizontalListviewState extends State<CineclubHorizontalListview>
                     const BouncingScrollPhysics(), //Anddroid y IOS se comporten igual
                 itemBuilder: (context, index) {
                   //return _Slide(movie: widget.movies[index]);
-                  return FadeInRight(child: _Slide(cineclub: widget.cineclubs[index]));
+                  return FadeInRight(
+                      child: _Slide(cineclub: widget.cineclubs[index]));
                 },
               ),
             )
@@ -87,7 +89,6 @@ class _Slide extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
           //Imagen
           SizedBox(
               width: 130,
@@ -106,14 +107,11 @@ class _Slide extends StatelessWidget {
                           child: CircularProgressIndicator(strokeWidth: 2),
                         ),
                       );
-                    } 
+                    }
                     return GestureDetector(
-
-                      onTap: () => context.push('/movie/${cineclub.id}'),
+                      onTap: () => context.push('/cineclub/${cineclub.id}'),
                       child: FadeIn(child: child),
                     );
-
-                    
                   },
                 ),
               )),
@@ -131,7 +129,6 @@ class _Slide extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
-              
             ),
           ),
 
@@ -140,10 +137,10 @@ class _Slide extends StatelessWidget {
             children: [
               const Icon(Icons.location_pin, color: Colors.black, size: 15),
               const SizedBox(width: 3),
-              Text(cineclub.address, style: const TextStyle(fontSize: 10, color: Colors.black)),
+              Text(cineclub.address,
+                  style: const TextStyle(fontSize: 10, color: Colors.black)),
             ],
           )
-
         ]));
   }
 }
@@ -159,11 +156,8 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleStyle = TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: Colors.black87,
-    );
+    final titleStyle = Theme.of(context).textTheme.titleLarge;
+    final subtitleStyle = Theme.of(context).textTheme.titleSmall;
 
     return Container(
         padding: const EdgeInsets.only(
@@ -176,12 +170,17 @@ class _Title extends StatelessWidget {
             const Spacer(),
             if (subtitle != null)
               FilledButton.tonal(
-                style: const ButtonStyle(visualDensity: VisualDensity.compact),
-                onPressed: () {},
-                child: Text(subtitle!,
-                    style: titleStyle.copyWith(
-                        fontSize: 12, color: const Color(0xffF19F35))),
-              )
+                  style:
+                      const ButtonStyle(visualDensity: VisualDensity.compact),
+                  onPressed: () {},
+                  child: Text(
+                    subtitle!,
+                    style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xffF19F35),
+                    ).merge(subtitleStyle),
+                  )),
           ],
         ));
   }

@@ -24,4 +24,16 @@ class ShowtimeDatasource extends ShowtimesDatasource {
 
     return _jsonToShowtimes(response.data);
   }
+  
+  @override
+  Future<Showtime> getShowtimeById(String id) async {
+    final response = await dio.get('/showtimes/$id');
+    if (response.statusCode != 200) throw Exception('Error al obtener el showtime');
+    
+    final showtimeDetails = ShowtimeResponse.fromJson(response.data);
+
+    final Showtime showtime = ShowtimeMapper.showtimeToEntity(showtimeDetails);
+
+    return showtime;
+  }
 }
