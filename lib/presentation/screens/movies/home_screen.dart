@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.airplane_ticket_outlined),
               activeIcon: Icon(Icons.airplane_ticket),
-              label: 'Ticket'),
+              label: 'Tickets'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outlined),
               activeIcon: Icon(Icons.person),
