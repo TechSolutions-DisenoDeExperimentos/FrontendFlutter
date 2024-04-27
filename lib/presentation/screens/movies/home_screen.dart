@@ -5,7 +5,6 @@ import 'package:cine_app/presentation/providers/api_tucine/movies/movies_provide
 import 'package:cine_app/presentation/providers/api_moviedb/movies/movies_slideshow_provider.dart';
 import 'package:cine_app/presentation/screens/movies/favorite_movie_screen.dart';
 import 'package:cine_app/presentation/screens/profile/profile_screen.dart';
-import 'package:cine_app/presentation/screens/search/search_screen.dart';
 import 'package:cine_app/presentation/screens/tickets/my_tickets_screen.dart';
 import 'package:cine_app/presentation/widgets/movies/cineclub_horizontal_listview.dart';
 import 'package:cine_app/presentation/widgets/movies/movie_horizontal_listview_tucine.dart';
@@ -26,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
    int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final screens = [const _HomeView(), const FavoriteMovieScreen(), const SearchScreen(), const MyTicketsScreen(), const ProfileScreen()];
+    final screens = [const _HomeView(), const FavoriteMovieScreen(), const MyTicketsScreen(), const ProfileScreen()];
     return Scaffold(
       body: IndexedStack(
         index: selectedIndex,
@@ -49,10 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.favorite_border_outlined),
               activeIcon: Icon(Icons.favorite),
               label: 'Favoritos'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search_outlined),
-              activeIcon: Icon(Icons.search),
-              label: 'Buscar'),
           BottomNavigationBarItem(
               icon: Icon(Icons.airplane_ticket_outlined),
               activeIcon: Icon(Icons.airplane_ticket),

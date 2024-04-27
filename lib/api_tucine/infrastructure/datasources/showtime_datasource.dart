@@ -36,4 +36,10 @@ class ShowtimeDatasource extends ShowtimesDatasource {
 
     return showtime;
   }
+  
+  @override
+  Future<List<Showtime>> getAllShowtimes() async {
+    final response = await dio.get('/showtimes');
+    return _jsonToShowtimes(response.data);
+  }
 }

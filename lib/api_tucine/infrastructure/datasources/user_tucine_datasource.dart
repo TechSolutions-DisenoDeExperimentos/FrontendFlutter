@@ -54,4 +54,10 @@ class UserTuCineDataSource extends UserDatasource {
       return false;
     }
   }
+  
+  @override
+  Future getUserById(String userId) async {
+    final response = await dio.get('users/userid/$userId');
+    return _jsonToUsers(response.data);
+  }
 }

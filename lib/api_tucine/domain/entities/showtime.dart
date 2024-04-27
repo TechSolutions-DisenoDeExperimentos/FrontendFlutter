@@ -4,6 +4,7 @@ class Showtime{
   final String playTime;
   final int capacity;
   final double unitPrice;
+  final int availableFilmId;
 
   Showtime({
     required this.id,
@@ -11,5 +12,6 @@ class Showtime{
     required this.playTime,
     required this.capacity,
     required this.unitPrice,
+    required this.availableFilmId
   });
 }

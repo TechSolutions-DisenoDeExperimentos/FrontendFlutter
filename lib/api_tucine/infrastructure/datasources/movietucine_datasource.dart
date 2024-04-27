@@ -56,4 +56,19 @@ class MovietucineDatasource extends MoviesDatasource {
 
     return _jsonToCineclubs(response.data);
   }
+  
+  @override
+  Future<List<Movie>> searchMovies(String query) async{
+
+    if ( query.isEmpty ) return [];
+
+    final response = await dio.get('/films/search', 
+      queryParameters: {
+        'title': query
+      }
+    );
+
+    return _jsonToMovies(response.data);
+
+  }
 }

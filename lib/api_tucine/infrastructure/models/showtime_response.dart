@@ -4,7 +4,7 @@ class ShowtimeResponse {
     final String playTime;
     final int capacity;
     final double unitPrice;
-    final AvailableFilm availableFilm;
+    final AvailableFilmR availableFilm;
 
     ShowtimeResponse({
         required this.id,
@@ -21,7 +21,7 @@ class ShowtimeResponse {
         playTime: json["playTime"],
         capacity: json["capacity"],
         unitPrice: json["unitPrice"],
-        availableFilm: AvailableFilm.fromJson(json["availableFilm"]),
+        availableFilm: AvailableFilmR.fromJson(json["availableFilm"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -34,18 +34,18 @@ class ShowtimeResponse {
     };
 }
 
-class AvailableFilm {
+class AvailableFilmR {
     final int id;
     final String customNotice;
     final String isAvailable;
 
-    AvailableFilm({
+    AvailableFilmR({
         required this.id,
         required this.customNotice,
         required this.isAvailable,
     });
 
-    factory AvailableFilm.fromJson(Map<String, dynamic> json) => AvailableFilm(
+    factory AvailableFilmR.fromJson(Map<String, dynamic> json) => AvailableFilmR(
         id: json["id"],
         customNotice: json["customNotice"],
         isAvailable: json["isAvailable"],

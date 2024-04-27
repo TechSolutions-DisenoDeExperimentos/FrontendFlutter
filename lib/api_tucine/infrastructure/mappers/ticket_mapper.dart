@@ -8,5 +8,10 @@ class TicketMapper {
     totalPrice: ticketResponse.totalPrice,
     status: ticketResponse.status,
     dateEmition: ticketResponse.dateEmition,
+    //user: ticketResponse.user,
+    //showtime: ticketResponse.showtime
+    userId: ticketResponse.user.id,
+    showtimeId: ticketResponse.showtime.id,
+    //availableFilmId: ticketResponse.showtime.id
   );
 }
