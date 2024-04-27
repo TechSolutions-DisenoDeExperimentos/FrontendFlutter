@@ -1,3 +1,4 @@
+import 'package:cine_app/presentation/screens/auth/log_in.dart';
 import 'package:cine_app/presentation/screens/cineclubs/cineclubs_screen.dart';
 import 'package:cine_app/presentation/screens/movies/movie_tu_cine_screen.dart';
 import 'package:cine_app/presentation/screens/screens.dart';
@@ -8,8 +9,8 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: HomeScreen.name,
-      builder: (context, state) => const HomeScreen(),
+      name: LoginPage.name,
+      builder: (context, state) => const LoginPage(),
       routes: [
         GoRoute(
           path: 'movie/:id',

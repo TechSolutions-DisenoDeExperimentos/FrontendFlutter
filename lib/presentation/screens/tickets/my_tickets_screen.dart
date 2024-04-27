@@ -1,4 +1,3 @@
-import 'package:cine_app/api_tucine/domain/datasources/movies_datasource.dart';
 import 'package:cine_app/api_tucine/domain/entities/available_film.dart';
 import 'package:cine_app/api_tucine/domain/entities/cineclub.dart';
 import 'package:cine_app/api_tucine/domain/entities/movie.dart';
