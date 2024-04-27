@@ -152,10 +152,7 @@ class _MyTicketsScreenState extends State<MyTicketsScreen> {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 10),
                                     title: Text(
-                                        getMovieById(getAvFilmByIdS(
-                                                    movieTicket.showtimeId)
-                                                .movieId)
-                                            .title,
+                                        getMovieById((getAvFilmByIdS((getShowtimeById(movieTicket.showtimeId)).availableFilmId)).movieId).title,
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold)),
