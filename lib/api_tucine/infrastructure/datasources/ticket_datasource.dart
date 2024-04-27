@@ -49,7 +49,7 @@ class TicketDatasource extends TicketsDatasource {
 
   @override
   Future<List<Ticket>> getTicketsByUserId(String userId) async {
-    final response = await dio.get('tickets/userid/$userId');
+    final response = await dio.get('/tickets/userid/$userId');
     return _jsonToTickets(response.data);
   }
 

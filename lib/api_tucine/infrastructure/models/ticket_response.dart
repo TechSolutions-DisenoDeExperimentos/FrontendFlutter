@@ -1,11 +1,11 @@
 class TicketResponse {
   final int id;
   final int numberSeats;
-  final int totalPrice;
+  final double totalPrice;
   final String status;
   final String dateEmition;
-  final User user;
-  final Showtime showtime;
+  final UserR user;
+  final ShowtimeR showtime;
 
   TicketResponse(
       {required this.id,
@@ -17,14 +17,14 @@ class TicketResponse {
       required this.showtime});
 
   factory TicketResponse.fromJson(Map<String, dynamic> json) => TicketResponse(
-        id: json['id'],
+        id: json['id'] as int,
         numberSeats: json['numberSeats'],
         totalPrice: json['totalPrice'],
         status: json['status'],
         dateEmition: json['dateEmition'],
         //user: json['user'] != null ? new User.fromJson(json['user']) : null,
-        user: User.fromJson(json['user']),
-        showtime: Showtime.fromJson(json['showtime']),
+        user: UserR.fromJson(json['user']),
+        showtime: ShowtimeR.fromJson(json['showtime']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,7 +38,7 @@ class TicketResponse {
       };
 }
 
-class User {
+class UserR {
   final int id;
   final String firstName;
   final String lastName;
@@ -48,11 +48,11 @@ class User {
   final String createdAt;
   final String dni;
   final String password;
-  final String imageSrc;
-  final String bankAccount;
+  final String? imageSrc;
+  final String? bankAccount;
   final String address;
 
-  User(
+  UserR(
       {required this.id,
       required this.firstName,
       required this.lastName,
@@ -62,12 +62,12 @@ class User {
       required this.createdAt,
       required this.dni,
       required this.password,
-      required this.imageSrc,
-      required this.bankAccount,
+      this.imageSrc,
+      this.bankAccount,
       required this.address});
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json['id'],
+  factory UserR.fromJson(Map<String, dynamic> json) => UserR(
+        id: json['id'] as int,
         firstName: json['firstName'],
         lastName: json['lastName'],
         birthdate: json['birthdate'],
@@ -76,7 +76,7 @@ class User {
         createdAt: json['createdAt'],
         dni: json['dni'],
         password: json['password'],
-        imageSrc: json['imageSrc'],
+        imageSrc: json['imageSrc'] ,
         bankAccount: json['bankAccount'],
         address: json['address'],
       );
@@ -91,28 +91,28 @@ class User {
         'createdAt': createdAt,
         'dni': dni,
         'password': password,
-        'imageSrc': imageSrc,
-        'bankAccount': bankAccount,
+        'imageSrc': imageSrc != null ? '${imageSrc}' : 'https://qph.cf2.quoracdn.net/main-qimg-6d72b77c81c9841bd98fc806d702e859-lq',
+        'bankAccount': bankAccount  != null ? '${bankAccount}' : 'no asignado',
         'address': address,
       };
 }
 
-class Showtime {
+class ShowtimeR {
   final int id;
   final String playDate;
   final String playTime;
   final int capacity;
-  final int unitPrice;
+  final double unitPrice;
 
-  Showtime(
+  ShowtimeR(
       {required this.id,
       required this.playDate,
       required this.playTime,
       required this.capacity,
       required this.unitPrice});
 
-  factory Showtime.fromJson(Map<String, dynamic> json) => Showtime(
-        id: json['id'],
+  factory ShowtimeR.fromJson(Map<String, dynamic> json) => ShowtimeR(
+        id: json['id'] as int,
         playDate: json['playDate'],
         playTime: json['playTime'],
         capacity: json['capacity'],

@@ -9,5 +9,6 @@ class ShowtimeMapper{
     playTime: showtimeResponse.playTime,
     capacity: showtimeResponse.capacity,
     unitPrice: showtimeResponse.unitPrice,
+    availableFilmId: showtimeResponse.availableFilm.id
   );
 }

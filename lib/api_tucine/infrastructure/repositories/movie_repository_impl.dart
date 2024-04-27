@@ -21,4 +21,9 @@ class MovieRepositoryImpl extends MoviesRepository {
   Future<List<Cineclub>> getCineclubsById(String id) {
     return dataSource.getCineclubsById(id);
   }
+
+  @override
+  Future<List<Movie>> searchMovies(String query) {
+    return dataSource.searchMovies(query);
+  }
 }
