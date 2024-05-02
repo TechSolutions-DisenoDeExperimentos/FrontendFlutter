@@ -1,7 +1,4 @@
 
-
-
-import 'package:tu_cine_app/config/constants/environment.dart';
 import 'package:tu_cine_app/api_moviedb/domain/datasources/actors_datasource.dart';
 import 'package:tu_cine_app/api_moviedb/domain/entities/actor.dart';
 import 'package:tu_cine_app/api_moviedb/infrastructure/mappers/actor_mapper.dart';
