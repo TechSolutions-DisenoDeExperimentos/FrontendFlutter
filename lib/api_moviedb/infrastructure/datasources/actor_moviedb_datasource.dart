@@ -13,7 +13,7 @@ class ActorMovieDbDatasource extends ActorsDatasource {
   final dio = Dio(BaseOptions(
     baseUrl: 'https://api.themoviedb.org/3',
     queryParameters: {
-      'api_key': Environment.theMovieDbKey,
+      'api_key': 'c4516ab1ea92e264566821c3850a2e3f',
       'language': 'es-ES',
     },
   ));
