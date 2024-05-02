@@ -1,10 +1,13 @@
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tu_cine_app/api_tucine/domain/entities/movie.dart';
 import 'package:tu_cine_app/presentation/providers/api_tucine/actors/actors_by_movie_provider.dart';
+import 'package:tu_cine_app/presentation/providers/api_tucine/cineclubs/cineclubs_movie_provider.dart';
 import 'package:tu_cine_app/presentation/providers/api_tucine/movies/movie_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:tu_cine_app/presentation/widgets/movies/cineclub_listview_movie.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieTuCineScreen extends ConsumerStatefulWidget {
@@ -25,11 +28,13 @@ class MovieScreenState extends ConsumerState<MovieTuCineScreen> {
 
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
     ref.read(actorsByMovieProvider.notifier).loadActors(widget.movieId);
+    ref.read(cineclubsByMovieProvider.notifier).loadCineclubs(widget.movieId);
   }
 
   @override
   Widget build(BuildContext context) {
     final Movie? movie = ref.watch(movieInfoProvider)[widget.movieId];
+    
 
     if (movie == null) {
       return const Scaffold(
@@ -45,6 +50,7 @@ class MovieScreenState extends ConsumerState<MovieTuCineScreen> {
             delegate: SliverChildBuilderDelegate(
               (context, index) => _MovieDetails(movie: movie),
               childCount: 1,
+              
             ),
           ),
         ],
@@ -120,7 +126,7 @@ class _CustomSliverAppBar extends StatelessWidget {
   }
 }
 
-class _MovieDetails extends StatefulWidget {
+class _MovieDetails extends ConsumerStatefulWidget {
   final Movie movie;
 
   const _MovieDetails({
@@ -128,14 +134,19 @@ class _MovieDetails extends StatefulWidget {
   });
 
   @override
-  State<_MovieDetails> createState() => _MovieDetailsState();
+  _MovieDetailsState createState() => _MovieDetailsState();
 }
 
-class _MovieDetailsState extends State<_MovieDetails> {
+class _MovieDetailsState extends ConsumerState<_MovieDetails> {
   late YoutubePlayerController _controller;
+  void navigateToCineclub(String cineclubId) {
+    final goRouter = GoRouter.of(context);
+    goRouter.push('/movie/${widget.movie.id}/cineclubs/$cineclubId');
+  }
 
   @override
   void initState() {
+    
     final videoId = YoutubePlayer.convertUrlToId(widget.movie.trailerSrc)!;
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
@@ -145,6 +156,7 @@ class _MovieDetailsState extends State<_MovieDetails> {
       ),
     );
     super.initState();
+    
     
   }
 
@@ -157,6 +169,7 @@ class _MovieDetailsState extends State<_MovieDetails> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textStyles = Theme.of(context).textTheme;
+    final cineclubs = ref.watch(cineclubsByMovieProvider)[widget.movie.id.toString()];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -300,6 +313,15 @@ class _MovieDetailsState extends State<_MovieDetails> {
             ),
           ),
         ),*/
+        CineclubListviewMovie(
+                  cineclubs: cineclubs ?? [],
+                  movieId: widget.movie.id.toString(),
+                  name: 'Cineclubs',
+                  loadNextPage: () => ref
+                      .read(cineclubsByMovieProvider.notifier)
+                      .loadCineclubs(widget.movie.id.toString()),
+                  onTapCineclub: navigateToCineclub,
+                ),
 
         const SizedBox(height: 50),
 
