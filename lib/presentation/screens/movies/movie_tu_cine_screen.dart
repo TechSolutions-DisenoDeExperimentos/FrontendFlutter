@@ -1,4 +1,7 @@
 import 'package:cine_app/api_tucine/domain/entities/movie.dart';
+import 'package:cine_app/presentation/providers/api_tucine/cineclubs/cineclubs_movie_provider.dart';
+import 'package:cine_app/presentation/widgets/movies/cineclub_listview_movie.dart';
+import 'package:go_router/go_router.dart';
 import 'package:cine_app/presentation/providers/api_tucine/actors/actors_by_movie_provider.dart';
 import 'package:cine_app/presentation/providers/api_tucine/movies/movie_info_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +27,7 @@ class MovieScreenState extends ConsumerState<MovieTuCineScreen> {
 
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
     ref.read(actorsByMovieProvider.notifier).loadActors(widget.movieId);
+    ref.read(cineclubsByMovieProvider.notifier).loadCineclubs(widget.movieId);
   }
 
   @override
@@ -119,7 +123,7 @@ class _CustomSliverAppBar extends StatelessWidget {
   }
 }
 
-class _MovieDetails extends StatefulWidget {
+class _MovieDetails extends ConsumerStatefulWidget {
   final Movie movie;
 
   const _MovieDetails({
@@ -127,14 +131,19 @@ class _MovieDetails extends StatefulWidget {
   });
 
   @override
-  State<_MovieDetails> createState() => _MovieDetailsState();
+  _MovieDetailsState createState() => _MovieDetailsState();
 }
 
-class _MovieDetailsState extends State<_MovieDetails> {
+class _MovieDetailsState extends ConsumerState<_MovieDetails> {
   late YoutubePlayerController _controller;
+  void navigateToCineclub(String cineclubId) {
+    final goRouter = GoRouter.of(context);
+    goRouter.push('/movie/${widget.movie.id}/cineclubs/$cineclubId');
+  }
 
   @override
   void initState() {
+
     final videoId = YoutubePlayer.convertUrlToId(widget.movie.trailerSrc)!;
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
@@ -144,7 +153,6 @@ class _MovieDetailsState extends State<_MovieDetails> {
       ),
     );
     super.initState();
-    
   }
 
   void _restartVideo() {
@@ -156,6 +164,7 @@ class _MovieDetailsState extends State<_MovieDetails> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textStyles = Theme.of(context).textTheme;
+    final cineclubs = ref.watch(cineclubsByMovieProvider)[widget.movie.id.toString()];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,7 +235,7 @@ class _MovieDetailsState extends State<_MovieDetails> {
             child: AspectRatio(
                 aspectRatio: 8 / 6,
                 child: YoutubePlayer(
-                  controller: _controller, 
+                  controller: _controller,
                   showVideoProgressIndicator: true,
                   onReady: () => debugPrint('Ready ${widget.movie.trailerSrc}'),
                   onEnded: (metaData) => _restartVideo(),
@@ -242,13 +251,20 @@ class _MovieDetailsState extends State<_MovieDetails> {
                     const PlaybackSpeedButton(),
                     RemainingDuration(),
                   ],
-                )
-            ),
+                )),
           ),
         ),
+         CineclubListviewMovie(
+                  cineclubs: cineclubs ?? [],
+                  movieId: widget.movie.id.toString(),
+                  name: 'Cineclubs',
+                  loadNextPage: () => ref
+                      .read(cineclubsByMovieProvider.notifier)
+                      .loadCineclubs(widget.movie.id.toString()),
+                  onTapCineclub: navigateToCineclub,
+                ),
 
         const SizedBox(height: 50),
-
       ],
     );
   }
@@ -308,4 +324,3 @@ class _ActorsByMovie extends ConsumerWidget {
     );
   }
 }
-
