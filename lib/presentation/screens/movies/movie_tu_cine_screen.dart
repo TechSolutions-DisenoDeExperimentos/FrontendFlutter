@@ -286,33 +286,6 @@ class _MovieDetailsState extends ConsumerState<_MovieDetails> {
                   }
                 },
               ),
-
-        /*Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-          child: SizedBox(
-            child: AspectRatio(
-                aspectRatio: 8 / 6,
-                child: YoutubePlayer(
-                  controller: _controller, 
-                  showVideoProgressIndicator: true,
-                  onReady: () => debugPrint('Ready ${widget.movie.trailerSrc}'),
-                  onEnded: (metaData) => _restartVideo(),
-                  bottomActions: [
-                    CurrentPosition(),
-                    ProgressBar(
-                      isExpanded: true,
-                      colors: const ProgressBarColors(
-                        playedColor: Colors.amber,
-                        handleColor: Colors.amberAccent,
-                      ),
-                    ),
-                    const PlaybackSpeedButton(),
-                    RemainingDuration(),
-                  ],
-                )
-            ),
-          ),
-        ),*/
         CineclubListviewMovie(
                   cineclubs: cineclubs ?? [],
                   movieId: widget.movie.id.toString(),
@@ -324,7 +297,6 @@ class _MovieDetailsState extends ConsumerState<_MovieDetails> {
                 ),
 
         const SizedBox(height: 50),
-
       ],
     );
   }
