@@ -139,7 +139,7 @@ class _MovieDetails extends ConsumerStatefulWidget {
 
 class _MovieDetailsState extends ConsumerState<_MovieDetails> {
   late YoutubePlayerController _controller;
-  void navigateToCineclub(String cineclubId) {
+  dynamic navigateToCineclub(String cineclubId) {
     final goRouter = GoRouter.of(context);
     goRouter.push('/movie/${widget.movie.id}/cineclubs/$cineclubId');
   }
@@ -293,7 +293,7 @@ class _MovieDetailsState extends ConsumerState<_MovieDetails> {
                   loadNextPage: () => ref
                       .read(cineclubsByMovieProvider.notifier)
                       .loadCineclubs(widget.movie.id.toString()),
-                  onTapCineclub: navigateToCineclub,
+                  onTapCineclub: navigateToCineclub, 
                 ),
 
         const SizedBox(height: 50),

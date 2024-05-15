@@ -48,6 +48,7 @@ class ShowtimeScreenState extends ConsumerState<ShowtimeScreen> {
   Widget build(BuildContext context) {
     final cineclub = ref.watch(cineclubInfoProvider)[widget.cineclubId];
     final movie = ref.watch(movieInfoProvider)[widget.movieId];
+    bool isShowtimeSelected = false;
 
     if (cineclub == null) {
       return const Center(child: CircularProgressIndicator());
@@ -78,7 +79,9 @@ class ShowtimeScreenState extends ConsumerState<ShowtimeScreen> {
                 const SizedBox(height: 10),
                 _ShowtimeList(
                     movieId: movie.id.toString(),
-                    cineclubId: cineclub.id.toString()),
+                    cineclubId: cineclub.id.toString(),
+                    isSelected: isShowtimeSelected
+                    ),
                 const SizedBox(height: 10),
                 const _BookingQuantity(),
                 const SizedBox(height: 10),
@@ -98,10 +101,14 @@ class _Book extends ConsumerStatefulWidget {
   const _Book();
 
   @override
-  _BookState createState() => _BookState();
+  _BookState createState() => _BookState(false);
 }
 
 class _BookState extends ConsumerState<_Book> {
+  final bool isActive;
+
+  _BookState(this.isActive);
+
   @override
   Widget build(BuildContext context) {
     final selectedShowtime = ref.watch(selectedShowtimeProvider);
@@ -121,9 +128,9 @@ class _BookState extends ConsumerState<_Book> {
           final ticketDatasource = ref.read(ticketDatasourceProvider);
           await ticketDatasource.createTicket(ticket);
         },
-        child: const Text(
+        child: Text(
           'Reservar',
-          style: TextStyle(fontSize: 15, color: Colors.white),
+          style: isActive? const TextStyle(fontSize: 15, color: Colors.amber) : const TextStyle(fontSize: 15, color: Colors.white),
         ),
       ),
     );
@@ -239,10 +246,12 @@ class _BookingQuantityState extends ConsumerState<_BookingQuantity> {
 class _ShowtimeList extends ConsumerStatefulWidget {
   final String movieId;
   final String cineclubId;
+  final bool isSelected;
 
   const _ShowtimeList({
     required this.movieId,
     required this.cineclubId,
+    required this.isSelected,
   });
 
   @override
@@ -251,6 +260,12 @@ class _ShowtimeList extends ConsumerStatefulWidget {
 
 class _ShowtimeListState extends ConsumerState<_ShowtimeList> {
   int _selectedIndex = -1;
+  bool isSelected = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -285,6 +300,7 @@ class _ShowtimeListState extends ConsumerState<_ShowtimeList> {
                   ref.read(selectedShowtimeProvider.notifier).updateSelectedShowtime(showtime);
                   setState(() {
                     _selectedIndex = index;
+                    isSelected = true;
                   });
                 },
                 child: Row(
