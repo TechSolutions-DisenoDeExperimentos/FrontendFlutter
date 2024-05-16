@@ -7,7 +7,8 @@ import 'package:tu_cine_app/presentation/screens/tickets/ticket_widget.dart';
 import 'package:flutter/material.dart';
 
 class TiketView extends StatelessWidget {
-  const TiketView(this.ticket, this.showtime, this.availableFilm, this.cineclub, this.movie,
+  const TiketView(
+      this.ticket, this.showtime, this.availableFilm, this.cineclub, this.movie,
       {super.key});
   // ignore: prefer_typing_uninitialized_variables
   final Ticket ticket;
@@ -19,22 +20,24 @@ class TiketView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        automaticallyImplyLeading:
+            false, // Esto evita que aparezca la flecha de retroceso
+      ),
       body: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black87,
-                size: 20,
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  color: Colors.black87,
+                  iconSize: 20,
+                  onPressed: () => Navigator.pop(context),
+                ),
               ),
-              Icon(
-                Icons.more_vert,
-                color: Colors.black87,
-                size: 20,
-              )
             ],
           ),
           const Text(
@@ -130,15 +133,18 @@ class TiketView extends StatelessWidget {
                                   children: [
                                     ticketDetails(
                                         'Dirección', cineclub.address),
-                                    ticketDetails('Cantidad', (ticket.numberSeats).toString()),
+                                    ticketDetails('Cantidad',
+                                        (ticket.numberSeats).toString()),
                                   ]),
                               const SizedBox(height: 10),
                               Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    ticketDetails('Precio total', (ticket.totalPrice).toString()),
-                                    ticketDetails('Order Id', (ticket.id).toString())
+                                    ticketDetails('Precio total',
+                                        (ticket.totalPrice).toString()),
+                                    ticketDetails(
+                                        'Order Id', (ticket.id).toString())
                                   ]),
                             ],
                           ),
